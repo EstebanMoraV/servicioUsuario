@@ -1,30 +1,31 @@
 package com.usuario.servicioUsuario.service;
 
-import com.usuario.servicioUsuario.model.Usuarios;
-import com.usuario.servicioUsuario.repository.UsuarioRepository
-
-import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
-import jakarta.transaction.Transactional;
-
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.usuario.servicioUsuario.model.Usuarios;
+import com.usuario.servicioUsuario.repository.UsuarioRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
 public class UsuarioService {
     @Autowired
-    private InterfaceUsuarios usuarios;
+    private UsuarioRepository usuarios;
     
     public List<Usuarios> findAll() {
-        return UsuarioRepository.findAll();
+        return usuarios.findAll();
     }
     public Usuarios findById(Long id) {
-        return UsuarioRepository.findById(id).get();
+        return usuarios.findById(id).get();
     }
-    public void save(Usuarios usuarios) {
-        return UsuarioRepository.save(usuarios);
+    public Usuarios save (Usuarios user) {
+        return usuarios.save(user);
     }
     public void delete(Long id) {
-        return UsuarioRepository.deleteById(id);
+        usuarios.deleteById(id);
     }
 }
