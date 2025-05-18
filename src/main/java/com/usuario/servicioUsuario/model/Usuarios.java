@@ -35,6 +35,5 @@ public class Usuarios {
     private Date fechaNacimiento;
 
     @Column(nullable = false)
-    private Date fechaCreacion;
-    
+    private Date fechaCreacion;   
 }
