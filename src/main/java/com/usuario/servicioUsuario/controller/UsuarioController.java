@@ -42,7 +42,7 @@ public class UsuarioController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/username/{nombreUsuario}")
+    @GetMapping("/usuario/{nombreUsuario}")
     public ResponseEntity<Usuario> getUsuarioByNombreUsuario(@PathVariable String nombreUsuario) { 
         Optional<Usuario> usuario = usuarioService.findByNombreUsuario(nombreUsuario);
         return usuario
