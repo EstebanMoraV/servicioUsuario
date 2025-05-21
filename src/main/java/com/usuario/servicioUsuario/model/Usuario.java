@@ -3,7 +3,7 @@ package com.usuario.servicioUsuario.model;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,7 +24,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Usuario {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -32,7 +31,7 @@ public class Usuario {
     @Column(unique = true, nullable = false, length = 50)
     private String nombreUsuario;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // Evita que la contraseña se muestre al serializar el objeto
     @Column(nullable = false, length = 50)
     private String contrasena;
 
@@ -40,7 +39,7 @@ public class Usuario {
     private String correo;
 
     @Column(nullable = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "America/Santiago")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone = "America/Santiago")
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
 

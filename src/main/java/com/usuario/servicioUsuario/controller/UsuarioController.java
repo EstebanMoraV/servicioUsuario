@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired; 
-import org.springframework.http.HttpStatus; // Importa la clase HttpStatus que sirve para manejar los códigos de estado HTTP
-import org.springframework.http.ResponseEntity; // Importa la clase ResponseEntity que sirve para construir respuestas HTTP
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,10 +53,10 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario usuario) {
         try {
-            Usuario createdUsuario = usuarioService.save(usuario);
-            return new ResponseEntity<>(createdUsuario, HttpStatus.CREATED);
+            Usuario newUsuario = usuarioService.save(usuario);
+            return new ResponseEntity<>(newUsuario, HttpStatus.CREATED); // 201 Created
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR); // 500 Internal Server Error
         }
     }
 
@@ -90,4 +90,3 @@ public class UsuarioController {
         }
     }
 }
-
