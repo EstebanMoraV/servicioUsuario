@@ -1,8 +1,6 @@
 package com.usuario.servicioUsuario;
 
-import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
