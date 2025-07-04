@@ -18,14 +18,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.usuario.servicioUsuario.model.Usuario;
 import com.usuario.servicioUsuario.service.UsuarioService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/v1/usuarios")
+@Tag(name = "Usuario Controller", description = "Controlador para gestionar usuarios OAS 3.0")
 public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
 
     @GetMapping
+    @Operation(summary = "Obtener todos los usuarios", description = "Devuelve una lista de todos los usuarios registrados")
+    // @Operation es una anotación de Swagger que permite documentar la API
     public ResponseEntity<List<Usuario>> getAllUsuarios() {
         List<Usuario> usuarios = usuarioService.findAll();
         if (usuarios.isEmpty()) {
@@ -35,6 +41,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Obtener usuario por ID", description = "Devuelve un usuario específico por su ID")
     public ResponseEntity<Usuario> getUsuarioById(@PathVariable Integer id) {
         Optional<Usuario> usuario = usuarioService.findById(id);
         return usuario
@@ -43,6 +50,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/usuario/{nombreUsuario}")
+    @Operation(summary = "Obtener usuario por nombre de usuario", description = "Devuelve un usuario específico por su nombre de usuario")
     public ResponseEntity<Usuario> getUsuarioByNombreUsuario(@PathVariable String nombreUsuario) { 
         Optional<Usuario> usuario = usuarioService.findByNombreUsuario(nombreUsuario);
         return usuario
@@ -51,6 +59,7 @@ public class UsuarioController {
     }
 
     @PostMapping
+    @Operation(summary = "Crear un nuevo usuario", description = "Crea un nuevo usuario y lo guarda en la base de datos")
     public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario usuario) {
         try {
             Usuario newUsuario = usuarioService.save(usuario);
@@ -61,6 +70,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Actualizar un usuario", description = "Actualiza los datos de un usuario existente por su ID")
     public ResponseEntity<Usuario> updateUsuario(@PathVariable Integer id, @RequestBody Usuario usuario) {
         // PathVariable se usa para obtener el id de la URL
         // RequestBody se usa para obtener el objeto usuario del cuerpo de la petición
@@ -81,6 +91,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar un usuario", description = "Elimina un usuario existente por su ID")
     public ResponseEntity<HttpStatus> deleteUsuario(@PathVariable Integer id) {
         try {
             usuarioService.delete(id);
